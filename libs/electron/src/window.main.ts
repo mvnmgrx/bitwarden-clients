@@ -116,7 +116,12 @@ export class WindowMain {
       y: this.windowStates[mainWindowSizeKey].y,
       title: app.name,
       icon: process.platform === "linux" ? path.join(__dirname, "/images/icon.png") : undefined,
-      titleBarStyle: this.hideTitleBar && process.platform === "darwin" ? "hiddenInset" : undefined,
+      titleBarStyle: this.hideTitleBar && process.platform === "darwin" ? "hiddenInset" : "hidden",
+      titleBarOverlay: {
+        color: "#363636",
+        symbolColor: "#74b1be",
+        height: 43,
+      },
       show: false,
       backgroundColor: "#fff",
       alwaysOnTop: this.enableAlwaysOnTop,
@@ -126,7 +131,15 @@ export class WindowMain {
         backgroundThrottling: false,
         contextIsolation: false,
       },
+      autoHideMenuBar: true,
     });
+
+    //// Use these colors for light mode
+    // this.win.setTitleBarOverlay({
+    //   color: '#175DDC',
+    //   symbolColor: '#74b1be',
+    //   height: 43
+    // })
 
     if (this.windowStates[mainWindowSizeKey].isMaximized) {
       this.win.maximize();
