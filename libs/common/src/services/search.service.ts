@@ -1,6 +1,7 @@
 import * as lunr from "lunr";
 
 import { CipherService } from "../abstractions/cipher.service";
+import { InternalFolderService } from "../abstractions/folder/folder.service.abstraction";
 import { I18nService } from "../abstractions/i18n.service";
 import { LogService } from "../abstractions/log.service";
 import { SearchService as SearchServiceAbstraction } from "../abstractions/search.service";
@@ -19,6 +20,7 @@ export class SearchService implements SearchServiceAbstraction {
   private readonly immediateSearchLocales: string[] = ["zh-CN", "zh-TW", "ja", "ko", "vi"];
   private readonly defaultSearchableMinLength: number = 2;
   private searchableMinLength: number = this.defaultSearchableMinLength;
+  folderService: InternalFolderService = null;
 
   constructor(
     private cipherService: CipherService,

@@ -1,8 +1,11 @@
 import { CipherView } from "../models/view/cipherView";
 import { SendView } from "../models/view/sendView";
 
+import { FolderService } from "./folder/folder.service.abstraction";
+
 export abstract class SearchService {
   indexedEntityId?: string = null;
+  folderService?: FolderService = null;
   clearIndex: () => void;
   isSearchable: (query: string) => boolean;
   indexCiphers: (indexedEntityGuid?: string, ciphersToIndex?: CipherView[]) => Promise<void>;
