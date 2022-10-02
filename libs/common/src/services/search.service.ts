@@ -130,7 +130,7 @@ export class SearchService implements SearchServiceAbstraction {
     }
 
     if (!this.isSearchable(query)) {
-      return ciphers;
+      return await this.giveCiphersTheirFolderName(ciphers);
     }
 
     if (this.indexing) {
@@ -143,7 +143,8 @@ export class SearchService implements SearchServiceAbstraction {
     const index = this.getIndexForSearch();
     if (index == null) {
       // Fall back to basic search if index is not available
-      return this.searchCiphersBasic(ciphers, query);
+      ciphers = this.searchCiphersBasic(ciphers, query)
+      return await this.giveCiphersTheirFolderName(ciphers);
     }
 
     const ciphersMap = new Map<string, CipherView>();
@@ -177,7 +178,27 @@ export class SearchService implements SearchServiceAbstraction {
         }
       });
     }
-    return results;
+    return await this.giveCiphersTheirFolderName(results);
+  }
+
+  /**
+   * Gives an array of ciphers their respective folder names
+   * @param ciphers Array of ciphers
+   * @return Promise of an array of ciphers with their .folderName attribute set
+   */
+  async giveCiphersTheirFolderName(ciphers: CipherView[]) 
+  {
+    const decryptedFolders = await this.folderService.getAllDecryptedFromState();
+    ciphers.forEach( (cipher) => 
+    {
+      decryptedFolders.forEach( (folder) => 
+      {
+        if (folder.id == cipher.folderId) {
+          cipher.folderName = folder.name;
+        }
+      });
+    });
+    return ciphers
   }
 
   searchCiphersBasic(ciphers: CipherView[], query: string, deleted = false) {
