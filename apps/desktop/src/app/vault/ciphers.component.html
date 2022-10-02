@@ -9,42 +9,60 @@
       maxBufferPx="600"
       *ngIf="ciphers.length"
     >
-      <div class="list">
-        <button
-          type="button"
-          *cdkVirtualFor="let c of ciphers; trackBy: trackByFn"
-          appStopClick
-          (click)="selectCipher(c)"
-          (contextmenu)="rightClickCipher(c)"
-          title="{{ 'viewItem' | i18n }}"
-          [ngClass]="{ active: c.id === activeCipherId }"
-          [attr.aria-pressed]="c.id === activeCipherId"
-          class="flex-list-item virtual-scroll-item"
-        >
-          <app-vault-icon [cipher]="c"></app-vault-icon>
-          <div class="flex-cipher-list-item">
-            <span class="text">
-              {{ c.name | ellipsis }}
-              <ng-container *ngIf="c.organizationId">
-                <i
-                  class="bwi bwi-collection text-muted"
-                  title="{{ 'shared' | i18n }}"
-                  aria-hidden="true"
-                ></i>
-                <span class="sr-only">{{ "shared" | i18n }}</span>
-              </ng-container>
-              <ng-container *ngIf="c.hasAttachments">
-                <i
-                  class="bwi bwi-paperclip text-muted"
-                  title="{{ 'attachments' | i18n }}"
-                  aria-hidden="true"
-                ></i>
-                <span class="sr-only">{{ "attachments" | i18n }}</span>
-              </ng-container>
-            </span>
-            <span *ngIf="c.subTitle" class="detail">{{ c.subTitle }}</span>
-          </div>
-        </button>
+      <div *cdkVirtualFor="let sc of sortedCiphers">
+        <div class="list" style="margin-bottom: 1rem">
+          <p class="seperator-box">
+            <span
+              style="
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                padding-right: 0.5rem;
+              "
+            >
+              <i aria-hidden="true" class="bwi bwi-fw bwi-folder" style="margin-right: 0.2rem"></i>
+              {{ sc.ciphers[0].folderName }}</span
+            >
+          </p>
+          <button
+            type="button"
+            *ngFor="let c of sc.ciphers; trackBy: trackByFn"
+            appStopClick
+            (click)="selectCipher(c)"
+            (contextmenu)="rightClickCipher(c)"
+            title="{{ 'viewItem' | i18n }}"
+            [ngClass]="{ active: c.id === activeCipherId }"
+            [attr.aria-pressed]="c.id === activeCipherId"
+            class="flex-list-item virtual-scroll-item"
+          >
+            <app-vault-icon [cipher]="c"></app-vault-icon>
+            <div class="flex-cipher-list-item">
+              <span class="text">
+                {{ c.name | ellipsis }}
+                <ng-container *ngIf="c.organizationId">
+                  <i
+                    class="bwi bwi-collection text-muted"
+                    title="{{ 'shared' | i18n }}"
+                    aria-hidden="true"
+                  ></i>
+                  <span class="sr-only">{{ "shared" | i18n }}</span>
+                </ng-container>
+                <ng-container *ngIf="c.hasAttachments">
+                  <i
+                    class="bwi bwi-paperclip text-muted"
+                    title="{{ 'attachments' | i18n }}"
+                    aria-hidden="true"
+                  ></i>
+                  <span class="sr-only">{{ "attachments" | i18n }}</span>
+                </ng-container>
+              </span>
+              <span *ngIf="c.subTitle" class="detail">{{ c.subTitle }}</span>
+              <!--<span *ngIf="c.folderId" class="detail">{{ c.folderId }}</span>-->
+              <!--<span *ngFor="let f of ichBinEinService.folders$ | async" [ngValue]="f.id">{{ f.name }}</span>-->
+            </div>
+          </button>
+        </div>
       </div>
     </cdk-virtual-scroll-viewport>
     <div class="no-items" *ngIf="!ciphers.length">
