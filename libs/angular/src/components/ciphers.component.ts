@@ -3,6 +3,22 @@ import { Directive, EventEmitter, Input, Output } from "@angular/core";
 import { SearchService } from "@bitwarden/common/abstractions/search.service";
 import { CipherView } from "@bitwarden/common/models/view/cipherView";
 
+/**
+ * Container class for ciphers sorted by their folder ID attribute
+ */
+class SortedCipher {
+  folderId = "";
+  ciphers: CipherView[] = [];
+  constructor(allCiphers: CipherView[], folderId: string) {
+    this.folderId = folderId;
+    allCiphers.forEach((item) => {
+      if (item.folderId == folderId) {
+        this.ciphers.push(item);
+      }
+    });
+  }
+}
+
 @Directive()
 export class CiphersComponent {
   @Input() activeCipherId: string = null;
@@ -11,6 +27,7 @@ export class CiphersComponent {
   @Output() onAddCipher = new EventEmitter();
   @Output() onAddCipherOptions = new EventEmitter();
 
+  sortedCiphers: SortedCipher[] = [];
   loaded = false;
   ciphers: CipherView[] = [];
   searchText: string;
