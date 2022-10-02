@@ -19,6 +19,7 @@ export class CipherView implements View {
   id: string = null;
   organizationId: string = null;
   folderId: string = null;
+  folderName: string = null;
   name: string = null;
   notes: string = null;
   type: CipherType = null;
