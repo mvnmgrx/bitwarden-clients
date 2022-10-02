@@ -80,6 +80,21 @@ export class CiphersComponent {
   selectCipher(cipher: CipherView) {
     this.onCipherClicked.emit(cipher);
   }
+  /**
+   * Sort all ciphers by their folder IDs
+   */
+  sortCiphers() {
+    this.sortedCiphers = [];
+    const alreadyUsedFolderIds: string[] = [];
+
+    this.ciphers.forEach((item) => {
+      if (!alreadyUsedFolderIds.includes(item.folderId)) {
+        const newSortedCipher = new SortedCipher(this.ciphers, item.folderId);
+        this.sortedCiphers.push(newSortedCipher);
+        alreadyUsedFolderIds.push(item.folderId);
+      }
+    });
+  }
 
   rightClickCipher(cipher: CipherView) {
     this.onCipherRightClicked.emit(cipher);
@@ -105,5 +120,6 @@ export class CiphersComponent {
       [this.filter, this.deletedFilter],
       indexedCiphers
     );
+    this.sortCiphers();
   }
 }
