@@ -579,6 +579,9 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     }
 
+    // Set position of toasts to be away from the system icons
+    options.positionClass = "toast-bottom-right";
+
     this.toastrService.show(message, msg.title, options, "toast-" + msg.type);
   }
 
