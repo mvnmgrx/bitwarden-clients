@@ -1,5 +1,5 @@
-import { CipherView } from "../models/view/cipherView";
-import { SendView } from "../models/view/sendView";
+import { CipherView } from "../models/view/cipher.view";
+import { SendView } from "../models/view/send.view";
 
 import { FolderService } from "./folder/folder.service.abstraction";
 

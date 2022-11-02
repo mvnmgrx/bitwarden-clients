@@ -15,7 +15,7 @@ import { LogService } from "../abstractions/log.service";
 import {
   AuthRequestPushNotification,
   NotificationResponse,
-} from "./../models/response/notificationResponse";
+} from "./../models/response/notification.response";
 
 @Injectable()
 export class AnonymousHubService implements AnonymousHubServiceAbstraction {
@@ -32,7 +32,7 @@ export class AnonymousHubService implements AnonymousHubServiceAbstraction {
     this.url = this.environmentService.getNotificationsUrl();
 
     this.anonHubConnection = new HubConnectionBuilder()
-      .withUrl(this.url + "/anonymousHub?Token=" + token, {
+      .withUrl(this.url + "/anonymous-hub?Token=" + token, {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets,
       })

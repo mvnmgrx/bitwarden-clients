@@ -1,3 +1,5 @@
+import { firstValueFrom } from "rxjs";
+
 import { AuthService } from "@bitwarden/common/abstractions/auth.service";
 import { CipherService } from "@bitwarden/common/abstractions/cipher.service";
 import { MessagingService } from "@bitwarden/common/abstractions/messaging.service";
@@ -6,22 +8,22 @@ import { PolicyService } from "@bitwarden/common/abstractions/policy/policy.serv
 import { AuthenticationStatus } from "@bitwarden/common/enums/authenticationStatus";
 import { CipherType } from "@bitwarden/common/enums/cipherType";
 import { PolicyType } from "@bitwarden/common/enums/policyType";
-import { CipherView } from "@bitwarden/common/models/view/cipherView";
-import { LoginUriView } from "@bitwarden/common/models/view/loginUriView";
-import { LoginView } from "@bitwarden/common/models/view/loginView";
+import { CipherView } from "@bitwarden/common/models/view/cipher.view";
+import { LoginUriView } from "@bitwarden/common/models/view/login-uri.view";
+import { LoginView } from "@bitwarden/common/models/view/login.view";
 
-import { DecryptedCommandData } from "src/models/nativeMessaging/decryptedCommandData";
-import { CredentialCreatePayload } from "src/models/nativeMessaging/encryptedMessagePayloads/credentialCreatePayload";
-import { CredentialRetrievePayload } from "src/models/nativeMessaging/encryptedMessagePayloads/credentialRetrievePayload";
-import { CredentialUpdatePayload } from "src/models/nativeMessaging/encryptedMessagePayloads/credentialUpdatePayload";
-import { PasswordGeneratePayload } from "src/models/nativeMessaging/encryptedMessagePayloads/passwordGeneratePayload";
-import { AccountStatusResponse } from "src/models/nativeMessaging/encryptedMessageResponses/accountStatusResponse";
-import { CipherResponse } from "src/models/nativeMessaging/encryptedMessageResponses/cipherResponse";
-import { EncyptedMessageResponse } from "src/models/nativeMessaging/encryptedMessageResponses/encryptedMessageResponse";
-import { FailureStatusResponse } from "src/models/nativeMessaging/encryptedMessageResponses/failureStatusResponse";
-import { GenerateResponse } from "src/models/nativeMessaging/encryptedMessageResponses/generateResponse";
-import { SuccessStatusResponse } from "src/models/nativeMessaging/encryptedMessageResponses/successStatusResponse";
-import { UserStatusErrorResponse } from "src/models/nativeMessaging/encryptedMessageResponses/userStatusErrorResponse";
+import { DecryptedCommandData } from "../models/nativeMessaging/decryptedCommandData";
+import { CredentialCreatePayload } from "../models/nativeMessaging/encryptedMessagePayloads/credentialCreatePayload";
+import { CredentialRetrievePayload } from "../models/nativeMessaging/encryptedMessagePayloads/credentialRetrievePayload";
+import { CredentialUpdatePayload } from "../models/nativeMessaging/encryptedMessagePayloads/credentialUpdatePayload";
+import { PasswordGeneratePayload } from "../models/nativeMessaging/encryptedMessagePayloads/passwordGeneratePayload";
+import { AccountStatusResponse } from "../models/nativeMessaging/encryptedMessageResponses/accountStatusResponse";
+import { CipherResponse } from "../models/nativeMessaging/encryptedMessageResponses/cipherResponse";
+import { EncyptedMessageResponse } from "../models/nativeMessaging/encryptedMessageResponses/encryptedMessageResponse";
+import { FailureStatusResponse } from "../models/nativeMessaging/encryptedMessageResponses/failureStatusResponse";
+import { GenerateResponse } from "../models/nativeMessaging/encryptedMessageResponses/generateResponse";
+import { SuccessStatusResponse } from "../models/nativeMessaging/encryptedMessageResponses/successStatusResponse";
+import { UserStatusErrorResponse } from "../models/nativeMessaging/encryptedMessageResponses/userStatusErrorResponse";
 
 import { StateService } from "./state.service";
 
@@ -78,7 +80,7 @@ export class EncryptedMessageHandlerService {
   }
 
   private async statusCommandHandler(): Promise<AccountStatusResponse[]> {
-    const accounts = this.stateService.accounts.getValue();
+    const accounts = await firstValueFrom(this.stateService.accounts$);
     const activeUserId = await this.stateService.getUserId();
 
     if (!accounts || !Object.keys(accounts)) {
@@ -159,7 +161,7 @@ export class EncryptedMessageHandlerService {
 
     try {
       const encrypted = await this.cipherService.encrypt(cipherView);
-      await this.cipherService.saveWithServer(encrypted);
+      await this.cipherService.createWithServer(encrypted);
 
       // Notify other clients of new login
       await this.messagingService.send("addedCipher");
@@ -198,7 +200,7 @@ export class EncryptedMessageHandlerService {
       cipherView.login.uris[0].uri = credentialUpdatePayload.uri;
       const encrypted = await this.cipherService.encrypt(cipherView);
 
-      await this.cipherService.saveWithServer(encrypted);
+      await this.cipherService.updateWithServer(encrypted);
 
       // Notify other clients of update
       await this.messagingService.send("editedCipher");

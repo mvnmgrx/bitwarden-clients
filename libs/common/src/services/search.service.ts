@@ -8,8 +8,8 @@ import { SearchService as SearchServiceAbstraction } from "../abstractions/searc
 import { CipherType } from "../enums/cipherType";
 import { FieldType } from "../enums/fieldType";
 import { UriMatchType } from "../enums/uriMatchType";
-import { CipherView } from "../models/view/cipherView";
-import { SendView } from "../models/view/sendView";
+import { CipherView } from "../models/view/cipher.view";
+import { SendView } from "../models/view/send.view";
 
 export class SearchService implements SearchServiceAbstraction {
   private static registeredPipeline = false;
@@ -143,7 +143,7 @@ export class SearchService implements SearchServiceAbstraction {
     const index = this.getIndexForSearch();
     if (index == null) {
       // Fall back to basic search if index is not available
-      ciphers = this.searchCiphersBasic(ciphers, query)
+      ciphers = this.searchCiphersBasic(ciphers, query);
       return await this.giveCiphersTheirFolderName(ciphers);
     }
 
@@ -186,19 +186,16 @@ export class SearchService implements SearchServiceAbstraction {
    * @param ciphers Array of ciphers
    * @return Promise of an array of ciphers with their .folderName attribute set
    */
-  async giveCiphersTheirFolderName(ciphers: CipherView[]) 
-  {
+  async giveCiphersTheirFolderName(ciphers: CipherView[]) {
     const decryptedFolders = await this.folderService.getAllDecryptedFromState();
-    ciphers.forEach( (cipher) => 
-    {
-      decryptedFolders.forEach( (folder) => 
-      {
+    ciphers.forEach((cipher) => {
+      decryptedFolders.forEach((folder) => {
         if (folder.id == cipher.folderId) {
           cipher.folderName = folder.name;
         }
       });
     });
-    return ciphers
+    return ciphers;
   }
 
   searchCiphersBasic(ciphers: CipherView[], query: string, deleted = false) {
