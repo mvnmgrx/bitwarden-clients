@@ -8,9 +8,11 @@ import { ExportService } from "@bitwarden/common/abstractions/export.service";
 import { FileDownloadService } from "@bitwarden/common/abstractions/fileDownload/fileDownload.service";
 import { I18nService } from "@bitwarden/common/abstractions/i18n.service";
 import { LogService } from "@bitwarden/common/abstractions/log.service";
+import { OrganizationUserService } from "@bitwarden/common/abstractions/organization-user/organization-user.service";
 import { OrganizationService } from "@bitwarden/common/abstractions/organization/organization.service.abstraction";
 import { PlatformUtilsService } from "@bitwarden/common/abstractions/platformUtils.service";
 import { ProviderService } from "@bitwarden/common/abstractions/provider.service";
+import { EventSystemUser } from "@bitwarden/common/enums/event-system-user";
 import { Organization } from "@bitwarden/common/models/domain/organization";
 import { EventResponse } from "@bitwarden/common/models/response/event.response";
 
@@ -40,6 +42,7 @@ export class EventsComponent extends BaseEventsComponent implements OnInit, OnDe
     logService: LogService,
     private userNamePipe: UserNamePipe,
     private organizationService: OrganizationService,
+    private organizationUserService: OrganizationUserService,
     private providerService: ProviderService,
     fileDownloadService: FileDownloadService
   ) {
@@ -71,7 +74,7 @@ export class EventsComponent extends BaseEventsComponent implements OnInit, OnDe
   }
 
   async load() {
-    const response = await this.apiService.getOrganizationUsers(this.organizationId);
+    const response = await this.organizationUserService.getAllUsers(this.organizationId);
     response.data.forEach((u) => {
       const name = this.userNamePipe.transform(u);
       this.orgUsersUserIdMap.set(u.userId, { name: name, email: u.email });
@@ -114,17 +117,25 @@ export class EventsComponent extends BaseEventsComponent implements OnInit, OnDe
   }
 
   protected getUserName(r: EventResponse, userId: string) {
-    if (userId == null) {
-      return null;
+    if (r.installationId != null) {
+      return `Installation: ${r.installationId}`;
     }
 
-    if (this.orgUsersUserIdMap.has(userId)) {
-      return this.orgUsersUserIdMap.get(userId);
+    if (userId != null) {
+      if (this.orgUsersUserIdMap.has(userId)) {
+        return this.orgUsersUserIdMap.get(userId);
+      }
+
+      if (r.providerId != null && r.providerId === this.organization.providerId) {
+        return {
+          name: this.organization.providerName,
+        };
+      }
     }
 
-    if (r.providerId != null && r.providerId === this.organization.providerId) {
+    if (r.systemUser != null) {
       return {
-        name: this.organization.providerName,
+        name: EventSystemUser[r.systemUser],
       };
     }
 

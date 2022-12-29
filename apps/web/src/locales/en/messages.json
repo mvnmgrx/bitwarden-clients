@@ -278,7 +278,7 @@
     "message": "Search favorites"
   },
   "searchType": {
-    "message": "Search Type",
+    "message": "Search type",
     "description": "Search item type"
   },
   "searchVault": {
@@ -929,17 +929,17 @@
   "confirmFilePassword": {
     "message": "Confirm file password"
   },
-  "accountBackupOptionDescription": {
-    "message": "Use your account encryption key to encrypt the export and restrict import to only the current Bitwarden account."
+  "accountRestrictedOptionDescription": {
+    "message": "Use your account encryption key, derived from your account's username and Master Password, to encrypt the export and restrict import to only the current Bitwarden account."
   },
   "passwordProtectedOptionDescription": {
-    "message": "Set a password to encrypt the export and import it to any Bitwarden account using the password for decryption."
+    "message": "Set a file password to encrypt the export and import it to any Bitwarden account using the password for decryption."
   },
-  "fileTypeHeading": {
-    "message": "File type"
+  "exportTypeHeading": {
+    "message": "Export type"
   },
-  "accountBackup": {
-    "message": "Account backup"
+  "accountRestricted": {
+    "message": "Account restricted"
   },
   "passwordProtected": {
     "message": "Password protected"
@@ -1554,11 +1554,11 @@
   },
   "reportsDesc": {
     "message": "Identify and close security gaps in your online accounts by clicking the reports below.",
-    "description": "Vault health reports can be used to evaluate the security of your Bitwarden personal or organization vault."
+    "description": "Vault health reports can be used to evaluate the security of your Bitwarden individual or organization vault."
   },
   "orgsReportsDesc": {
     "message": "Identify and close security gaps in your organization's accounts by clicking the reports below.",
-    "description": "Vault health reports can be used to evaluate the security of your Bitwarden personal or organization Vault."
+    "description": "Vault health reports can be used to evaluate the security of your Bitwarden individual or organization Vault."
   },
   "unsecuredWebsitesReport": {
     "message": "Unsecure websites"
@@ -2444,7 +2444,7 @@
     "message": "Owner"
   },
   "ownerDesc": {
-    "message": "The highest access user that can manage all aspects of your organization."
+    "message": "Manage all aspects of your organization, including billing and subscriptions"
   },
   "clientOwnerDesc": {
     "message": "This user should be independent of the Provider. If the Provider is disassociated with the organization, this user will maintain ownership of the organization."
@@ -2453,19 +2453,19 @@
     "message": "Admin"
   },
   "adminDesc": {
-    "message": "Admins can access and manage all items, collections and users in your organization."
+    "message": "Manage organization access, all collections, members, reporting, and security settings"
   },
   "user": {
     "message": "User"
   },
   "userDesc": {
-    "message": "A regular user with access to assigned collections in your organization."
+    "message": "Access and add items to assigned collections"
   },
   "manager": {
     "message": "Manager"
   },
   "managerDesc": {
-    "message": "Managers can access and manage assigned collections in your organization."
+    "message": "Create, delete, and manage access in assigned collections"
   },
   "all": {
     "message": "All"
@@ -2504,7 +2504,7 @@
     "message": "Logged in"
   },
   "changedPassword": {
-    "message": "Account password saved"
+    "message": "Changed account password"
   },
   "enabledUpdated2fa": {
     "message": "Two-step login saved"
@@ -2513,7 +2513,7 @@
     "message": "Two-step login turned off"
   },
   "recovered2fa": {
-    "message": "Account recovered from two-step login"
+    "message": "Recovered account from two-step login."
   },
   "failedLogin": {
     "message": "Login attempt failed with incorrect password."
@@ -2525,10 +2525,10 @@
     "message": "Vault exported"
   },
   "exportedOrganizationVault": {
-    "message": "Organization vault exported"
+    "message": "Exported organization vault."
   },
   "editedOrgSettings": {
-    "message": "Organization settings saved"
+    "message": "Edited organization settings."
   },
   "createdItemId": {
     "message": "Created item $ID$.",
@@ -2593,6 +2593,15 @@
       "id": {
         "content": "$1",
         "example": "Google"
+      }
+    }
+  },
+  "viewedCardNumberItemId": {
+    "message": "Viewed Card Number for item $ID$.",
+    "placeholders": {
+      "id": {
+        "content": "$1",
+        "example": "Unique ID"
       }
     }
   },
@@ -3008,7 +3017,7 @@
     "message": "My organization"
   },
   "organizationInfo": {
-    "message": "Organization Info"
+    "message": "Organization info"
   },
   "deleteOrganization": {
     "message": "Delete organization"
@@ -3683,7 +3692,7 @@
     "message": "Organization identifier"
   },
   "ssoLogInWithOrgIdentifier": {
-    "message": "Log in using your organization's single sign-on portal. Please enter your organization's identifier to begin."
+    "message": "Log in using your organization's single sign-on portal. Please enter your organization's SSO identifier to begin."
   },
   "enterpriseSingleSignOn": {
     "message": "Enterprise single sign-on"
@@ -3704,10 +3713,10 @@
     "message": "SSO validation failed"
   },
   "ssoIdentifierRequired": {
-    "message": "Organization identifier is required."
+    "message": "Organization SSO identifier is required."
   },
   "ssoIdentifier": {
-    "message": "SSO Identifier"
+    "message": "SSO identifier"
   },
   "ssoIdentifierHint": {
     "message": "Provide this ID to your members to login with SSO."
@@ -4108,7 +4117,22 @@
     "message": "Custom"
   },
   "customDesc": {
-    "message": "Allows more granular control of user permissions for advanced configurations."
+    "message": "Grant customized permissions to members"
+  },
+  "customDescNonEnterpriseStart": {
+    "message": "Custom roles is an ",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Custom roles is an enterprise feature. Contact our support team to upgrade your subscription'"
+  },
+  "customDescNonEnterpriseLink": {
+    "message": "enterprise feature",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Custom roles is an enterprise feature. Contact our support team to upgrade your subscription'"
+  },
+  "customDescNonEnterpriseEnd": {
+    "message": ". Contact our support team to upgrade your subscription",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'Custom roles is an enterprise feature. Contact our support team to upgrade your subscription'"
+  },
+  "customNonEnterpriseError": {
+    "message": "To enable custom permissions the organization must be on an Enterprise 2020 plan."
   },
   "permissions": {
     "message": "Permissions"
@@ -4315,7 +4339,7 @@
     "message": "Withdrawal success!"
   },
   "eventEnrollPasswordReset": {
-    "message": "User $ID$ enrolled in password reset assistance.",
+    "message": "User $ID$ enrolled in password reset.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -4324,7 +4348,7 @@
     }
   },
   "eventWithdrawPasswordReset": {
-    "message": "User $ID$ withdrew from password reset assistance.",
+    "message": "User $ID$ withdrew from password reset.",
     "placeholders": {
       "id": {
         "content": "$1",
@@ -5164,7 +5188,7 @@
     "message": "Exporting organization vault"
   },
   "exportingPersonalVaultDescription": {
-    "message": "Only the individual vault items associated with $EMAIL$ will be exported. Organization vault items will not be included.",
+    "message": "Only the individual vault items associated with $EMAIL$ will be exported. Organization vault items will not be included. Only vault item information will be exported and will not include associated password history or attachments.",
     "placeholders": {
       "email": {
         "content": "$1",
@@ -5463,6 +5487,266 @@
   "multiSelectClearAll": {
     "message": "Clear all"
   },
+  "toggleCharacterCount": {
+    "message": "Toggle character count",
+    "description": "'Character count' describes a feature that displays a number next to each character of the password."
+  },
+  "passwordCharacterCount": {
+    "message": "Password character count",
+    "description": "'Character count' describes a feature that displays a number next to each character of the password."
+  },
+  "hide": {
+    "message": "Hide"
+  },
+  "projects":{
+    "message": "Projects"
+  },
+  "lastEdited":{
+    "message": "Last Edited"
+  },
+  "editSecret":{
+    "message": "Edit Secret"
+  },
+  "addSecret":{
+    "message": "Add Secret"
+  },
+  "copySecretName":{
+    "message": "Copy Secret Name"
+  },
+  "copySecretValue":{
+    "message": "Copy Secret Value"
+  },
+  "deleteSecret":{
+    "message": "Delete Secret"
+  },
+  "deleteSecrets":{
+    "message": "Delete Secrets"
+  },
+  "project":{
+    "message": "Project"
+  },
+  "editProject":{
+    "message": "Edit Project"
+  },
+  "viewProject":{
+    "message": "View Project"
+  },
+  "deleteProject":{
+    "message": "Delete Project"
+  },
+  "deleteProjects":{
+    "message": "Delete Projects"
+  },
+  "secret":{
+    "message": "Secret"
+  },
+  "serviceAccount":{
+    "message": "Service Account"
+  },
+  "serviceAccounts":{
+    "message": "Service Accounts"
+  },
+  "new":{
+    "message": "New"
+  },
+  "secrets":{
+    "message":"Secrets"
+  },
+  "nameValuePair":{
+    "message":"Name/Value Pair"
+  },
+  "secretEdited":{
+    "message":"Secret edited"
+  },
+  "secretCreated":{
+    "message":"Secret created"
+  },
+  "newSecret":{
+    "message":"New Secret"
+  },
+  "newServiceAccount":{
+    "message":"New Service Account"
+  },
+  "secretsNoItemsTitle":{
+    "message":"No secrets to show"
+  },
+  "secretsNoItemsMessage":{
+    "message": "To get started, add a new secret or import secrets."
+  },
+  "serviceAccountsNoItemsTitle":{
+    "message":"Nothing to show yet"
+  },
+  "serviceAccountsNoItemsMessage":{
+    "message": "Create a new Service Account to get started automating secret access."
+  },
+  "searchSecrets":{
+    "message":"Search Secrets"
+  },
+  "deleteServiceAccounts":{
+    "message":"Delete Service Accounts"
+  },
+  "deleteServiceAccount":{
+    "message":"Delete Service Account"
+  },
+  "viewServiceAccount":{
+    "message":"View Service Account"
+  },
+  "searchServiceAccounts":{
+    "message":"Search Service Accounts"
+  },
+  "addProject":{
+    "message": "Add Project"
+  },
+  "projectEdited":{
+    "message":"Project edited"
+  },
+  "projectSaved":{
+    "message":"Project saved"
+  },
+  "projectCreated":{
+    "message":"Project created"
+  },
+  "projectName":{
+    "message":"Project Name"
+  },
+  "newProject":{
+    "message":"New Project"
+  },
+  "softDeleteSecretWarning":{
+    "message":"Deleting secrets can affect existing integrations."
+  },
+  "softDeletesSuccessToast":{
+    "message":"Secrets sent to trash"
+  },
+  "serviceAccountCreated":{
+    "message":"Service Account Created"
+  },
+  "smAccess":{
+    "message":"Access"
+  },
+  "projectCommaSecret":{
+    "message":"Project, Secret"
+  },
+  "serviceAccountName":{
+    "message": "Service account name"
+  },
+  "newSaSelectAccess":{
+    "message": "Type or Select Projects or Secrets"
+  },
+  "newSaTypeToFilter":{
+    "message": "Type to Filter"
+  },
+  "deleteProjectsToast":{
+    "message": "Projects deleted"
+  },
+  "deleteProjectToast":{
+    "message": "The project and all associated secrets have been deleted"
+  },
+  "deleteProjectDialogMessage": {
+    "message":  "Deleting project $PROJECT$ is permanent and irreversible.",
+    "placeholders": {
+      "project": {
+        "content": "$1",
+        "example": "project name"
+      }
+    }
+  },
+  "deleteProjectInputLabel": {
+    "message":  "Type \"$CONFIRM$\" to continue",
+    "placeholders": {
+      "confirm": {
+        "content": "$1",
+        "example": "Delete 3 Projects"
+      }
+    }
+  },
+  "deleteProjectConfirmMessage":{
+    "message":  "Delete $PROJECT$",
+    "placeholders": {
+      "project": {
+        "content": "$1",
+        "example": "project name"
+      }
+    }
+  },
+  "deleteProjectsConfirmMessage":{
+    "message":  "Delete $COUNT$ Projects",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "deleteProjectsDialogMessage":{
+    "message": "Deleting projects is permanent and irreversible."
+  },
+  "projectsNoItemsTitle":{
+    "message": "No projects to display"
+  },
+  "projectsNoItemsMessage":{
+    "message": "Add a new project to get started organizing secrets."
+  },
+  "smConfirmationRequired":{
+    "message": "Confirmation required"
+  },
+  "bulkDeleteProjectsErrorMessage":{
+    "message": "The following projects could not be deleted:"
+  },
+  "softDeleteSuccessToast":{
+    "message":"Secret sent to trash"
+  },
+  "searchProjects":{
+    "message":"Search Projects"
+  },
+  "accessTokens": {
+    "message": "Access tokens"
+  },
+  "createAccessToken": {
+    "message": "Create access token"
+  },
+  "expires": {
+    "message": "Expires"
+  },
+  "canRead": {
+    "message": "Can Read"
+  },
+  "accessTokensNoItemsTitle": {
+    "message": "No access tokens to show"
+  },
+  "accessTokensNoItemsDesc": {
+    "message": "To get started, create an access token"
+  },
+  "downloadAccessToken": {
+    "message": "Download or copy before closing."
+  },
+  "expiresOnAccessToken": {
+    "message": "Expires on:"
+  },
+  "accessTokenCallOutTitle": {
+    "message": "Access tokens are not stored and cannot be retrieved"
+  },
+  "copyToken": {
+    "message": "Copy token"
+  },
+  "accessToken": {
+    "message": "Access token"
+  },
+  "accessTokenExpirationRequired": {
+    "message": "Expiration date required"
+  },
+  "accessTokenCreatedAndCopied": {
+    "message": "Access token created and copied to clipboard"
+  },
+  "accessTokenPermissionsBetaNotification": {
+    "message": "Permissions management is unavailable for beta."
+  },
+  "revokeAccessToken": {
+    "message": "Revoke Access Token"
+  },
+  "submenu": {
+    "message": "Submenu"
+  },
   "from": {
     "message": "From"
   },
@@ -5498,5 +5782,47 @@
   },
   "memberAccessAll": {
     "message": "This member can access and modify all items."
+  },
+  "moreFromBitwarden": {
+    "message": "More from Bitwarden"
+  },
+  "switchProducts": {
+    "message": "Switch Products"
+  },
+  "freeOrgInvLimitReachedManageBilling": {
+    "message": "Free organizations may have up to $SEATCOUNT$ members. Upgrade to a paid plan to invite more members.",
+    "placeholders": {
+      "seatcount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "freeOrgInvLimitReachedNoManageBilling": {
+    "message": "Free organizations may have up to $SEATCOUNT$ members. Contact your organization owner to upgrade.",
+    "placeholders": {
+      "seatcount": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "freeOrgMaxCollectionReachedManageBilling": {
+    "message": "Free organizations may have up to $COLLECTIONCOUNT$ collections. Upgrade to a paid plan to add more collections.",
+    "placeholders": {
+      "COLLECTIONCOUNT": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "freeOrgMaxCollectionReachedNoManageBilling": {
+    "message": "Free organizations may have up to $COLLECTIONCOUNT$ collections. Contact your organization owner to upgrade.",
+    "placeholders": {
+      "COLLECTIONCOUNT": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
   }
 }
