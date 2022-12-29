@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/bitwarden/brand/master/screenshots/apps-combo-logo.png" alt="Bitwarden" />
+  <img src="https://preview.redd.it/iemnewvtqex91.png?width=948&format=png&auto=webp&s=654300cfcbc2e0e36f011dcfc08d055babae922b" alt="Bitwarden" />
 </p>
 <p align="center">
   <a href="https://github.com/bitwarden/clients/actions/workflows/build-browser.yml?query=branch:master" target="_blank">
@@ -20,6 +20,46 @@
 </p>
 
 ---
+
+# Notice
+
+This is a fork of `bitwarden/clients` that implements the following features:
+
+- Removed menubar from UI and used Electron's built-in window style that is color-matched to the rest of the UI
+- Moved some UI elements to fit everything
+- Hard-coded dark mode (as i dont know better right now)
+- Search results grouped by folders
+- Disabled the auto-updater
+
+Bugs are to be expected. Never use this code in a production environment, it only shows how the Bitwarden UI could look like and is only maintained as i see fit. Discuss here: [Reddit](https://www.reddit.com/r/Bitwarden/comments/yjm5b6/sort_by_folders_and_a_cleaner_ui_design_on/).
+
+## Build this fork
+
+Prerequisites:
+
+- Node.JS and NPM installed
+- Rust and Cargo installed
+
+After cloning, enter the root folder of the repository with a terminal and do the following:
+
+1. Clean install all dependencies:
+   ```bash
+   $ npm ci
+   ```
+2. Install the platform-native modules:
+   ```bash
+   $ cd apps/desktop/desktop_native
+   $ npm run build
+   ```
+3. Run the fork:
+   ```bash
+   $ cd ..
+   $ npm run electron
+   ```
+4. Optionally, build the installer application (without the updater):
+   ```bash
+   $ npm run dist:win
+   ```
 
 # Bitwarden Client Applications
 
